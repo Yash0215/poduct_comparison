@@ -1,5 +1,6 @@
 package com.product.comparison.controller;
 
+import com.product.comparison.enums.DataType;
 import com.product.comparison.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -58,7 +59,7 @@ public class DataSourceController {
      */
     @PostMapping(value = "/bulk_import")
     public @ResponseBody ResponseEntity<String> bulkImport(@RequestParam(value="data", required=true) MultipartFile file,
-                                                            @RequestParam(value="data_type", required=true) String dataType) {
+                                                            @RequestParam(value="data_type", required=true) DataType dataType) {
         try {
             service.bulkInsert(file, dataType);
             return new ResponseEntity<String>("{\"message\":\"success\"}", HttpStatus.OK);

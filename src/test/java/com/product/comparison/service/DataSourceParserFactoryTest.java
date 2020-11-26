@@ -1,5 +1,6 @@
 package com.product.comparison.service;
 
+import com.product.comparison.enums.DataType;
 import com.product.comparison.exception.UnsupportedDataType;
 import org.junit.jupiter.api.Test;
 
@@ -11,16 +12,7 @@ class DataSourceParserFactoryTest {
     @Test
     void testGetParser() throws Exception {
         // Run the test
-        final DataSourceParser result = DataSourceParserFactory.getParser("CSV");
-
-        // Verify the results
-        assertEquals(result.getClass(), new CSVDataSourceParser().getClass());
-    }
-
-    @Test
-    void testGetParserSmallCaseDataType() throws Exception {
-        // Run the test
-        final DataSourceParser result = DataSourceParserFactory.getParser("csv");
+        final DataSourceParser result = DataSourceParserFactory.getParser(DataType.CSV);
 
         // Verify the results
         assertEquals(result.getClass(), new CSVDataSourceParser().getClass());
@@ -29,6 +21,6 @@ class DataSourceParserFactoryTest {
     @Test
     void testGetParser_ThrowsUnsupportedDataType() {
         // Run the test
-        assertThrows(UnsupportedDataType.class, () -> DataSourceParserFactory.getParser("EXCEL"));
+        assertThrows(UnsupportedDataType.class, () -> DataSourceParserFactory.getParser(DataType.XML));
     }
 }

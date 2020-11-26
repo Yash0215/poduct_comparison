@@ -1,6 +1,7 @@
 package com.product.comparison.service;
 
 
+import com.product.comparison.enums.DataType;
 import com.product.comparison.exception.UnsupportedDataType;
 import com.product.comparison.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,7 +65,7 @@ public class ProductService {
 	 * @throws Exception throws Exception if data type is not supported in current implementation of if some other
 	 * 						exception occurred during the parsing of the data source file or bulk insertion.
 	 */
-	public void bulkInsert(MultipartFile file, String dataType) throws Exception {
+	public void bulkInsert(MultipartFile file, DataType dataType) throws Exception {
 		try{
 			DataSourceParser parser = DataSourceParserFactory.getParser(dataType);
 			List<Product> products = parser.parse(file.getInputStream());

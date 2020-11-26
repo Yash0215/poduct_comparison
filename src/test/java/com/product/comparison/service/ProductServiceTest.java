@@ -1,5 +1,6 @@
 package com.product.comparison.service;
 
+import com.product.comparison.enums.DataType;
 import com.product.comparison.exception.UnsupportedDataType;
 import com.product.comparison.model.Product;
 import com.product.comparison.repository.ProductRepository;
@@ -115,7 +116,7 @@ class ProductServiceTest {
         when(mockRepo.saveAll(Arrays.asList(new Product(0, "name", "sellerName", "category", "description", 0.0)))).thenReturn(products);
 
         // Run the test
-        productServiceUnderTest.bulkInsert(file, "CSV");
+        productServiceUnderTest.bulkInsert(file, DataType.CSV);
 
     }
 
@@ -129,7 +130,7 @@ class ProductServiceTest {
         when(mockRepo.saveAll(Arrays.asList(new Product(0, "name", "sellerName", "category", "description", 0.0)))).thenReturn(products);
 
         // Run the test
-        assertThrows(UnsupportedDataType.class, () -> productServiceUnderTest.bulkInsert(file, "dataType"));
+        assertThrows(UnsupportedDataType.class, () -> productServiceUnderTest.bulkInsert(file, DataType.XML));
     }
 
 }

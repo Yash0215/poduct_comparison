@@ -30,7 +30,7 @@ public class DataSourceController {
     }
 
     @PostMapping(value = "/bulk_import")
-    public @ResponseBody ResponseEntity<String> bulk_import(@RequestParam(value="data", required=true) MultipartFile file,
+    public @ResponseBody ResponseEntity<String> bulkImport(@RequestParam(value="data", required=true) MultipartFile file,
                                                             @RequestParam(value="data_type", required=true) String dataType) {
         try {
             service.bulkInsert(file, dataType);

@@ -7,6 +7,8 @@ public class DataSourceParserFactory {
     public static DataSourceParser getParser(String dataType) throws UnsupportedDataType {
         if(dataType.equalsIgnoreCase("CSV")) {
             return new CSVDataSourceParser();
+        } else if (dataType.equalsIgnoreCase("JSON")){
+            throw new UnsupportedDataType();
         } else if (dataType.equalsIgnoreCase("XML")){
             throw new UnsupportedDataType();
         } else {

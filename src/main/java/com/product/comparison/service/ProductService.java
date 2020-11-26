@@ -1,6 +1,7 @@
 package com.product.comparison.service;
 
 
+import com.product.comparison.exception.UnsupportedDataType;
 import com.product.comparison.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,10 +40,11 @@ public class ProductService {
 			DataSourceParser parser = DataSourceParserFactory.getParser(dataType);
 			List<Product> products = parser.parse(file.getInputStream());
 			repo.saveAll(products);
-		} catch(IOException e){
+		} catch(UnsupportedDataType e){
+			throw new UnsupportedDataType();
+		} catch(Exception e){
 			e.printStackTrace();
 			throw new Exception("Something went wrong.");
 		}
-
 	}
 }

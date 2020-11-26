@@ -1,0 +1,6 @@
+id,name,seller_name,category,description,price
+100,s1,category1,desc1,100.10
+101,p1,s1,category1,desc2,200.10
+102,p2,s1,category2,,300.10
+null,p3,s1,category2,,400.10
+104,p4,s2,category2,,500.10

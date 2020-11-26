@@ -7,9 +7,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 
@@ -44,7 +48,9 @@ class ProductServiceTest {
         final List<Product> result = productServiceUnderTest.list_products("name", "category");
 
         // Verify the results
-        assertEquals();
+        assertEquals(products.size(), result.size());
+        assertEquals(products.get(0), result.get(0));
+
     }
 
     @Test
@@ -53,7 +59,7 @@ class ProductServiceTest {
 
         // Configure ProductRepository.findByNameAndCategory(...).
         final List<Product> products = Arrays.asList(new Product(0, "name", "sellerName", "category", "description", 0.0));
-        when(mockRepo.findByNameAndCategory("name", "category")).thenReturn(products);
+        when(mockRepo.findByNameAndCategory("name", "category")).thenThrow(RuntimeException.class);
 
         // Run the test
         assertThrows(Exception.class, () -> productServiceUnderTest.list_products("name", "category"));
@@ -81,25 +87,36 @@ class ProductServiceTest {
 
         // Configure ProductRepository.save(...).
         final Product product = new Product(0, "name", "sellerName", "category", "description", 0.0);
-        when(mockRepo.save(any(Product.class))).thenReturn(product);
+        when(mockRepo.save(any(Product.class))).thenThrow(RuntimeException.class);
 
         // Run the test
-        assertThrows(Exception.class, () -> productServiceUnderTest.insert_product(0, "name", "sellerName", "category", "description", 0.0));
+        assertThrows(Exception.class,
+                () -> productServiceUnderTest.insert_product(0, "name", "sellerName", "category", "description", 0.0));
     }
 
     @Test
     void testBulk_insert() throws Exception {
         // Setup
-        final MultipartFile file = null;
+        Path path = Paths.get("test.csv");
+        String name = "test.csv";
+        String originalFileName = "test.csv";
+        String contentType = "text/csv";
+        byte[] content = null;
+        try {
+            content = Files.readAllBytes(path);
+        } catch (final IOException e) {
+            e.printStackTrace();
+        }
+        final MultipartFile file = new MockMultipartFile(name,
+                originalFileName, contentType, content);
 
         // Configure ProductRepository.saveAll(...).
         final List<Product> products = Arrays.asList(new Product(0, "name", "sellerName", "category", "description", 0.0));
         when(mockRepo.saveAll(Arrays.asList(new Product(0, "name", "sellerName", "category", "description", 0.0)))).thenReturn(products);
 
         // Run the test
-        productServiceUnderTest.bulk_insert(file, "dataType");
+        productServiceUnderTest.bulk_insert(file, "CSV");
 
-        // Verify the results
     }
 
     @Test
@@ -115,16 +132,4 @@ class ProductServiceTest {
         assertThrows(UnsupportedDataType.class, () -> productServiceUnderTest.bulk_insert(file, "dataType"));
     }
 
-    @Test
-    void testBulk_insert_ThrowsIOException() {
-        // Setup
-        final MultipartFile file = null;
-
-        // Configure ProductRepository.saveAll(...).
-        final List<Product> products = Arrays.asList(new Product(0, "name", "sellerName", "category", "description", 0.0));
-        when(mockRepo.saveAll(Arrays.asList(new Product(0, "name", "sellerName", "category", "description", 0.0)))).thenReturn(products);
-
-        // Run the test
-        assertThrows(IOException.class, () -> productServiceUnderTest.bulk_insert(file, "dataType"));
-    }
 }

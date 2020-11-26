@@ -12,12 +12,23 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * This class provides endpoints that could be used fetch the products list/product from the service database.
+ */
+
 @RestController
 public class ProductController {
 	
 	@Autowired
 	private ProductService service;
-	  
+
+	/**
+	 * This method provides the endpoint to get the list of the products with given name and category.
+	 *
+	 * @param name: Name of the products to be fetched.
+	 * @param category: Category of the products to be fetched
+	 * @return returns the list of the products with given name and category or null if some exception occurred.
+	 */
 	@GetMapping(value = "/list")
 	public @ResponseBody ResponseEntity<List<Product>> imageMeta(@RequestParam(value="name", required=true) String name,
 																 @RequestParam(value="category", required=true) String category) {

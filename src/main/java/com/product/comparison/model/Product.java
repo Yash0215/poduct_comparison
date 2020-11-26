@@ -3,6 +3,11 @@ package com.product.comparison.model;
 import javax.persistence.*;
 import java.util.Objects;
 
+/**
+ * This class create and entity for the the database table "products" also contains all required attributes that
+ * a product should have.
+ */
+
 @Entity
 @Table(name="products")
 public class Product {

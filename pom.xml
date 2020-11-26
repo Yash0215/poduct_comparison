@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.imageupload</groupId>
-	<artifactId>aws</artifactId>
+	<artifactId>product-comparison</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>aws</name>
-	<description>Demo project for AWS image upload</description>
+	<name>product-comparison</name>
+	<description>Product Comparison Service</description>
 
 	<properties>
 		<java.version>1.8</java.version>

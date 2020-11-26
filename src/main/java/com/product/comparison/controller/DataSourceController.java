@@ -14,26 +14,26 @@ public class DataSourceController {
     @Autowired
     private ProductService service;
 
-    @GetMapping(value = "/_insert")
-    public @ResponseBody ResponseEntity<String> insert_product(@RequestParam(value="product_id", required=true) Integer id,
+    @GetMapping(value = "/insert_product")
+    public @ResponseBody ResponseEntity<String> insertProduct(@RequestParam(value="product_id", required=true) Integer id,
                                             @RequestParam(value="product_name", required=true) String name,
                                             @RequestParam(value="seller_name", required=true) String sellerName,
                                             @RequestParam(value="category", required=true) String category,
                                             @RequestParam(value="description") String description,
                                             @RequestParam(value="price", required=true) Double price) {
         try {
-            service.insert_product(id, name, sellerName, category, description, price);
+            service.insertProduct(id, name, sellerName, category, description, price);
             return new ResponseEntity<String>("{\"message\":\"success\"}", HttpStatus.OK);
         } catch(Exception e) {
             return new ResponseEntity<String>("{\"message\":\"" + e.getMessage() + "\"}", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @PostMapping(value = "/_bulk")
+    @PostMapping(value = "/bulk_import")
     public @ResponseBody ResponseEntity<String> bulk_import(@RequestParam(value="data", required=true) MultipartFile file,
                                                             @RequestParam(value="data_type", required=true) String dataType) {
         try {
-            service.bulk_insert(file, dataType);
+            service.bulkInsert(file, dataType);
             return new ResponseEntity<String>("{\"message\":\"success\"}", HttpStatus.OK);
         } catch(Exception e) {
             return new ResponseEntity<String>("{\"message\":\"" + e.getMessage() + "\"}", HttpStatus.INTERNAL_SERVER_ERROR);

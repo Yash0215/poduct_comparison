@@ -21,7 +21,7 @@ public class ProductService {
 		return repo.findByNameAndCategory(name, category);
 	}
 
-	public void insert_product(Integer id, String name, String sellerName, String category, String description, Double price) throws Exception {
+	public void insertProduct(Integer id, String name, String sellerName, String category, String description, Double price) throws Exception {
 		Product product = new Product(id, name, sellerName, category, description, price);
 		if(!repo.existsById(id)){
 			try {
@@ -35,11 +35,13 @@ public class ProductService {
 		}
 	}
 
-	public void bulk_insert(MultipartFile file, String dataType) throws Exception {
+	public void bulkInsert(MultipartFile file, String dataType) throws Exception {
 		try{
 			DataSourceParser parser = DataSourceParserFactory.getParser(dataType);
 			List<Product> products = parser.parse(file.getInputStream());
-			repo.saveAll(products);
+			if(!products.isEmpty()){
+				repo.saveAll(products);
+			}
 		} catch(UnsupportedDataType e){
 			throw new UnsupportedDataType();
 		} catch(Exception e){

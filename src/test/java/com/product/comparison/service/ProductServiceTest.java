@@ -75,7 +75,7 @@ class ProductServiceTest {
         when(mockRepo.save(any(Product.class))).thenReturn(product);
 
         // Run the test
-        productServiceUnderTest.insert_product(0, "name", "sellerName", "category", "description", 0.0);
+        productServiceUnderTest.insertProduct(0, "name", "sellerName", "category", "description", 0.0);
 
         // Verify the results
     }
@@ -91,7 +91,7 @@ class ProductServiceTest {
 
         // Run the test
         assertThrows(Exception.class,
-                () -> productServiceUnderTest.insert_product(0, "name", "sellerName", "category", "description", 0.0));
+                () -> productServiceUnderTest.insertProduct(0, "name", "sellerName", "category", "description", 0.0));
     }
 
     @Test
@@ -115,7 +115,7 @@ class ProductServiceTest {
         when(mockRepo.saveAll(Arrays.asList(new Product(0, "name", "sellerName", "category", "description", 0.0)))).thenReturn(products);
 
         // Run the test
-        productServiceUnderTest.bulk_insert(file, "CSV");
+        productServiceUnderTest.bulkInsert(file, "CSV");
 
     }
 
@@ -129,7 +129,7 @@ class ProductServiceTest {
         when(mockRepo.saveAll(Arrays.asList(new Product(0, "name", "sellerName", "category", "description", 0.0)))).thenReturn(products);
 
         // Run the test
-        assertThrows(UnsupportedDataType.class, () -> productServiceUnderTest.bulk_insert(file, "dataType"));
+        assertThrows(UnsupportedDataType.class, () -> productServiceUnderTest.bulkInsert(file, "dataType"));
     }
 
 }

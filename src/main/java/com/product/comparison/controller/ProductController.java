@@ -18,7 +18,7 @@ public class ProductController {
 	@Autowired
 	private ProductService service;
 	  
-	@GetMapping(value = "/_list")
+	@GetMapping(value = "/list")
 	public @ResponseBody ResponseEntity<List<Product>> imageMeta(@RequestParam(value="name", required=true) String name,
 																 @RequestParam(value="category", required=true) String category) {
 		try {

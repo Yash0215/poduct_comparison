@@ -3,7 +3,7 @@ A product comparison service that lets you decide from which seller (website/ret
 
 ## Approch
 
-The service is written in ```Java``` and uses ```Spring Boot``` framwork to create a product comparison micro service.
+The service is written in ```Java``` and uses ```Spring Boot``` framework to create a product comparison micro service.
 
 ## How to create docker image and Run
 Skip Tests:
